@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import moment from 'moment'
+import {Calendar} from 'antd'
 
 class Home extends Component {
 
@@ -12,7 +14,11 @@ class Home extends Component {
 
     render() {
         return (
-            <div>home</div>
+            <div>
+                <div className="site-config-provider-calendar-wrapper">
+                    <Calendar fullscreen={false} value={moment()} />
+                </div>
+            </div>
         )
     }
 }
