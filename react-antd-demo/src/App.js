@@ -168,7 +168,7 @@ class App extends Component {
                                                     <Routes>
                                                         {
                                                             Routers.map((item) => {
-                                                                return <Route path={item.path} exact={item.exact} element={item.element}></Route>
+                                                                return <Route key={item.path} path={item.path} exact={item.exact} element={item.element}></Route>
                                                             })
                                                         }
                                                     </Routes>
