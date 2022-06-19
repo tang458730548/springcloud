@@ -5,11 +5,11 @@ import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     UploadOutlined,
+    HomeOutlined,
     UserOutlined,
     VideoCameraOutlined,
     MailOutlined,
 } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Routers from './router';
 import { Footer } from 'antd/lib/layout/layout';
@@ -107,7 +107,7 @@ class App extends Component {
                             <Layout className='layout-main'>
                                 <Sider trigger={null} collapsible collapsed={this.state.collapsed} style={{ height: 'calc(100% - 60px)' }}>
                                     <div className="logo" style={{ height: '60px' }}>
-                                        <img src='./../favicon.ico'></img><span style={{ color: 'white', fontSize: '16px' }}>xxxx管理系统</span>
+                                        <a href='#/'><img alt="图像" src='./../favicon.ico' /><span style={{ color: 'white', fontSize: '16px' }}>xxxx管理系统</span></a>
                                     </div>
                                     <Menu
                                         style={{ height: '100%' }}
@@ -174,13 +174,15 @@ class App extends Component {
                                             minHeight: 280,
                                         }}
                                     >
-                                        <Breadcrumb
-                                            style={{
-                                                margin: '16px 0',
-                                            }}
-                                        >
-                                            <Breadcrumb.Item>User</Breadcrumb.Item>
-                                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                                        <Breadcrumb>
+                                            <Breadcrumb.Item href="/#/">
+                                                <HomeOutlined />
+                                            </Breadcrumb.Item>
+                                            <Breadcrumb.Item href="/#/user/info">
+                                                <UserOutlined />
+                                                <span>用户中心</span>
+                                            </Breadcrumb.Item>
+                                            <Breadcrumb.Item>Application</Breadcrumb.Item>
                                         </Breadcrumb>
                                         <div className='div-container-main'>
                                             <div className='admin-control'>
@@ -198,7 +200,7 @@ class App extends Component {
                                             </div>
                                         </div>
                                     </Content>
-                                    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                                    <Footer style={{ textAlign: 'center' }}>xx xx ©2022 xxxxxxxxxx</Footer>
                                 </Layout>
                             </Layout>
                             :
