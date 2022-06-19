@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { message, Layout, Menu, Breadcrumb } from 'antd';
+import { message, Layout, Menu, Breadcrumb, ConfigProvider, Radio } from 'antd';
 import Login from './pages/user/Login'
 import {
     MenuFoldOutlined,
@@ -13,14 +13,20 @@ import { Link } from 'react-router-dom';
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Routers from './router';
 import { Footer } from 'antd/lib/layout/layout';
+import enUS from 'antd/lib/locale/en_US';
+import zhCN from 'antd/lib/locale/zh_CN';
+import moment from 'moment';
+moment.locale('en');
 
 const { Header, Sider, Content } = Layout;
+
 class App extends Component {
 
     constructor(props) {
 
         super(props);
         this.state = {
+            locale: 'en',
             session: JSON.parse(window.sessionStorage.getItem('session')),
             loading: false,
             collapsed: false,
@@ -94,96 +100,114 @@ class App extends Component {
 
     render() {
         return (
-            <div className='div-container-main'>
-                {
-                    this.state.session ?
-                        <Layout className='layout-main'>
-                            <Sider trigger={null} collapsible collapsed={this.state.collapsed} style={{ height: 'calc(100% - 60px)' }}>
-                                <div className="logo" style={{ height: '60px' }}>
-                                    <img src='./../favicon.ico'></img><span style={{ color: 'white', fontSize: '16px' }}>xxxx管理系统</span>
-                                </div>
-                                <Menu
-                                    style={{ height: '100%' }}
-                                    theme="dark"
-                                    mode="inline"
-                                    defaultSelectedKeys={['1']}
-                                    items={[
-                                        {
-                                            key: '1',
-                                            icon: <UserOutlined />,
-                                            label: 'nav 1',
-                                        },
-                                        {
-                                            key: '2',
-                                            icon: <VideoCameraOutlined />,
-                                            label: 'nav 2',
-                                        },
-                                        {
-                                            key: '3',
-                                            icon: <UploadOutlined />,
-                                            label: 'nav 3',
-                                        },
-                                    ]}
-                                />
-                            </Sider>
-                            <Layout className="site-layout" >
-                                <Header
-                                    className="site-layout-background"
-                                    style={{
-                                        padding: 0,
-                                    }}
-                                >
-                                    {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                                        className: 'trigger',
-                                        onClick: () => {
-                                            this.setState({
-                                                collapsed: !this.state.collapsed
-                                            })
-                                        },
-                                    })}
-                                    <span style={{ float: "right", width: '20%' }}>
-                                        <Menu onClick={this.onClick.bind(this)} selectedKeys={this.state.current} mode="horizontal" items={this.state.items} />
-                                    </span>
-                                </Header>
-                                <Content
-                                    className="site-layout-background"
-                                    style={{
-                                        margin: '24px 16px',
-                                        padding: 24,
-                                        minHeight: 280,
-                                    }}
-                                >
-                                    <Breadcrumb
+            <ConfigProvider locale={this.state.locale}>
+                <div className='div-container-main'>
+                    {
+                        this.state.session ?
+                            <Layout className='layout-main'>
+                                <Sider trigger={null} collapsible collapsed={this.state.collapsed} style={{ height: 'calc(100% - 60px)' }}>
+                                    <div className="logo" style={{ height: '60px' }}>
+                                        <img src='./../favicon.ico'></img><span style={{ color: 'white', fontSize: '16px' }}>xxxx管理系统</span>
+                                    </div>
+                                    <Menu
+                                        style={{ height: '100%' }}
+                                        theme="dark"
+                                        mode="inline"
+                                        defaultSelectedKeys={['1']}
+                                        items={[
+                                            {
+                                                key: '1',
+                                                icon: <UserOutlined />,
+                                                label: 'nav 1',
+                                            },
+                                            {
+                                                key: '2',
+                                                icon: <VideoCameraOutlined />,
+                                                label: 'nav 2',
+                                            },
+                                            {
+                                                key: '3',
+                                                icon: <UploadOutlined />,
+                                                label: 'nav 3',
+                                            },
+                                        ]}
+                                    />
+                                </Sider>
+                                <Layout className="site-layout" >
+                                    <Header
+                                        className="site-layout-background"
                                         style={{
-                                            margin: '16px 0',
+                                            padding: 0,
                                         }}
                                     >
-                                        <Breadcrumb.Item>User</Breadcrumb.Item>
-                                        <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                                    </Breadcrumb>
-                                    <div className='div-container-main'>
-                                        <div className='admin-control'>
-                                            <div className='div-router-main'>
-                                                <HashRouter>
-                                                    <Routes>
-                                                        {
-                                                            Routers.map((item) => {
-                                                                return <Route path={item.path} exact={item.exact} element={item.element}></Route>
-                                                            })
-                                                        }
-                                                    </Routes>
-                                                </HashRouter>
+                                        {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                                            className: 'trigger',
+                                            onClick: () => {
+                                                this.setState({
+                                                    collapsed: !this.state.collapsed
+                                                })
+                                            },
+                                        })}
+                                        <span style={{ float: "right", width: '15%' }}>
+                                            <Radio.Group value={this.state.locale} onChange={(event) => {
+                                                this.setState({
+                                                    locale: event.target.value
+                                                })
+                                            }}>
+                                                <Radio.Button key="en" value={enUS}>
+                                                    English
+                                                </Radio.Button>
+                                                <Radio.Button key="cn" value={zhCN}>
+                                                    中文
+                                                </Radio.Button>
+                                            </Radio.Group>
+                                        </span>
+                                        <span style={{ float: "right", width: '20%' }}>
+                                            <Menu onClick={this.onClick.bind(this)} selectedKeys={this.state.current} mode="horizontal" items={this.state.items} />
+                                        </span>
+                                    </Header>
+                                    <Content
+                                        className="site-layout-background"
+                                        style={{
+                                            margin: '24px 16px',
+                                            padding: 24,
+                                            minHeight: 280,
+                                        }}
+                                    >
+                                        <Breadcrumb
+                                            style={{
+                                                margin: '16px 0',
+                                            }}
+                                        >
+                                            <Breadcrumb.Item>User</Breadcrumb.Item>
+                                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                                        </Breadcrumb>
+                                        <div className='div-container-main'>
+                                            <div className='admin-control'>
+                                                <div className='div-router-main'>
+                                                    <HashRouter>
+                                                        <Routes>
+                                                            {
+                                                                Routers.map((item) => {
+                                                                    return <Route path={item.path} exact={item.exact} element={item.element}></Route>
+                                                                })
+                                                            }
+                                                        </Routes>
+                                                    </HashRouter>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </Content>
-                                <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                                    </Content>
+                                    <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
+                                </Layout>
                             </Layout>
-                        </Layout>
-                        :
-                        <Login></Login>
-                }
-            </div>
+                            :
+                            <Login>
+
+                            </Login>
+                    }
+                </div>
+            </ConfigProvider>
         )
     }
 }
