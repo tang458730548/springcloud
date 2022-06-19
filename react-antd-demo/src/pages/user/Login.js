@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Space, Spin, Row, Col, Input, Form, message, Checkbox } from 'antd';
+import { Button, Input, Form, message, Checkbox } from 'antd';
 import Footer from '../../component/layout/Footer';
 
 class Login extends Component {
@@ -13,40 +13,54 @@ class Login extends Component {
 
     componentDidMount() {
 
+    }
+
+    onFinish(values) {
+        console.log(values)
+
+        const userName = values.username
+        const password = values.password
+
+        if (userName !== 'admin' || password !== '123456') {
+            message.warn(`用户名/密码为:admin/123456`)
+            return
+        }
+
+        window.sessionStorage.setItem('session', JSON.stringify(values))
+
         this.setState({
             loading: true
         })
 
         setTimeout(() => {
+            message.success(`登录成功！`)
             this.setState({
                 loading: false
             })
-        }, 2000);
-    }
-
-    onFinish() {
-        message.success(`登录成功！`)
+            window.location.reload()
+            window.location.hash = "#/"
+        }, 1500);
     }
 
     onFinishFailed() {
-        message.success(`登录失败！`)
+        message.warn(`请输入用户名和密码！`)
     }
 
 
     render() {
         const labelCol = {
-            span: 8,
+            span: 6,
         }
         const wrapperCol = {
-            offset: 8,
-            span: 8,
+            offset: 4,
+            span: 16,
         }
         return (
             <div className='login-main'>
                 <div className='right-login'>
                     <div className='login-title'>
                         <div className='logo'>
-                            <img className='logo-img' src='./../../favicon.ico1'></img>
+                            <img className='logo-img' src='./../../favicon.ico'></img>
                             <span className='logo-span'>xxxxxxxxxxxx系统</span>
                         </div>
                         <div className='logo-nvg'>
@@ -74,7 +88,7 @@ class Login extends Component {
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your username!',
+                                            message: '请输入用户名！',
                                         },
                                     ]}
                                 >
@@ -87,7 +101,7 @@ class Login extends Component {
                                     rules={[
                                         {
                                             required: true,
-                                            message: 'Please input your password!',
+                                            message: '请输入密码！',
                                         },
                                     ]}
                                 >
@@ -104,11 +118,11 @@ class Login extends Component {
 
                                 <Form.Item
                                     wrapperCol={{
-                                        offset: 8,
+                                        offset: 6,
                                         span: 12,
                                     }}
                                 >
-                                    <Button type="primary" htmlType="submit" style={{ width: '100%' }}>
+                                    <Button type="primary" loading={this.state.loading} htmlType="submit" style={{ width: '100%' }}>
                                         登录
                                     </Button>
                                 </Form.Item>
