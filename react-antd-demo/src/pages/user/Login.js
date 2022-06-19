@@ -60,7 +60,7 @@ class Login extends Component {
                 <div className='right-login'>
                     <div className='login-title'>
                         <div className='logo'>
-                            <img className='logo-img' src='./../../favicon.ico'></img>
+                            <img  alt="图像" className='logo-img' src='./../../favicon.ico'></img>
                             <span className='logo-span'>xxxxxxxxxxxx系统</span>
                         </div>
                         <div className='logo-nvg'>
