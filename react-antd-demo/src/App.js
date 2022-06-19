@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { message, Layout, Menu, Breadcrumb, ConfigProvider, Radio } from 'antd';
+import { message, Layout, Menu, Breadcrumb, ConfigProvider, Radio, Tabs } from 'antd';
 import Login from './pages/user/Login'
 import {
     MenuFoldOutlined,
@@ -16,9 +16,11 @@ import { Footer } from 'antd/lib/layout/layout';
 import enUS from 'antd/lib/locale/en_US';
 import zhCN from 'antd/lib/locale/zh_CN';
 import moment from 'moment';
+import Menus from './config/menu'
 moment.locale('en');
 
 const { Header, Sider, Content } = Layout;
+const { TabPane } = Tabs;
 
 class App extends Component {
 
@@ -31,6 +33,8 @@ class App extends Component {
             loading: false,
             collapsed: false,
             current: undefined,
+            breadcrumbList: [
+            ],
             items: [
                 {
                     label: '消息中心',
@@ -98,6 +102,105 @@ class App extends Component {
         })
     }
 
+    getChild(items , arrays) {
+        return items.forEach(item => {
+            if (item.children) {
+                this.getChild(item.children)
+            }
+            return item;
+        })
+    }
+
+    onChange(key) {
+        this.setActiveKey(key);
+
+        let arrays = []
+        // arrays.push(1)
+        this.getChild(Menus , arrays)
+
+        const item = arrays.filter(item => {
+            return item.key === key
+        })
+        message.success(`点击了${item[0].label}`)
+        window.location.href = `#${item[0].router}`
+    }
+
+    onEdit(targetKey, action) {
+        if (action !== 'add') {
+            this.remove(targetKey);
+        }
+    }
+
+    remove(targetKey) {
+        const breadcrumbList = this.state.breadcrumbList;
+        breadcrumbList.forEach((pane, i) => {
+            if (pane.key === targetKey) {
+                breadcrumbList.splice(i, 1)
+            }
+        });
+
+        this.setState({
+            breadcrumbList: breadcrumbList
+        })
+
+        if (breadcrumbList.length > 0) {
+            const newActiveKey = breadcrumbList[breadcrumbList.length - 1].key
+            this.setActiveKey(newActiveKey);
+        } else {
+            this.setActiveKey(undefined);
+        }
+    }
+
+
+    setActiveKey(key) {
+        this.setState({
+            activeKey: key
+        })
+    }
+
+    getChildren(item) {
+        if (!item.children) {
+            return {
+                key: item.key,
+                icon: item.icon,
+                label: item.label,
+                onClick: () => {
+                    const breadcrumbList = this.state.breadcrumbList
+                    const key = item.key
+                    if (!breadcrumbList.some(item => {
+                        return item.key === key
+                    })) {
+                        breadcrumbList.push({
+                            title: item.label,
+                            content: item.content,
+                            key: key
+                        });
+                    }
+                    this.onChange(key)
+                    this.setState({
+                        breadcrumbList: breadcrumbList
+                    })
+                    window.location.href = `#${item.router}`
+                },
+            }
+        }
+        return {
+            key: item.key,
+            icon: item.icon,
+            label: item.label,
+            children:
+                item.children.map(i => {
+                    return this.getChildren(i)
+                })
+        }
+    }
+
+    handleMenus(Menus) {
+        return Menus.map(item => {
+            return this.getChildren(item);
+        })
+    }
+
     render() {
         return (
             <ConfigProvider locale={this.state.locale}>
@@ -114,23 +217,9 @@ class App extends Component {
                                         theme="dark"
                                         mode="inline"
                                         defaultSelectedKeys={['1']}
-                                        items={[
-                                            {
-                                                key: '1',
-                                                icon: <UserOutlined />,
-                                                label: 'nav 1',
-                                            },
-                                            {
-                                                key: '2',
-                                                icon: <VideoCameraOutlined />,
-                                                label: 'nav 2',
-                                            },
-                                            {
-                                                key: '3',
-                                                icon: <UploadOutlined />,
-                                                label: 'nav 3',
-                                            },
-                                        ]}
+                                        items={
+                                            this.handleMenus(Menus)
+                                        }
                                     />
                                 </Sider>
                                 <Layout className="site-layout" >
@@ -174,16 +263,16 @@ class App extends Component {
                                             minHeight: 280,
                                         }}
                                     >
-                                        <Breadcrumb>
-                                            <Breadcrumb.Item href="/#/">
-                                                <HomeOutlined />
-                                            </Breadcrumb.Item>
-                                            <Breadcrumb.Item href="/#/user/info">
-                                                <UserOutlined />
-                                                <span>用户中心</span>
-                                            </Breadcrumb.Item>
-                                            <Breadcrumb.Item>Application</Breadcrumb.Item>
-                                        </Breadcrumb>
+                                        {
+                                            <Tabs hideAdd onChange={this.onChange.bind(this)} activeKey={this.state.activeKey} type="editable-card" onEdit={this.onEdit.bind(this)}>
+                                                {
+                                                    this.state.breadcrumbList.map((pane) => (
+                                                        <TabPane tab={pane.title} key={pane.key}>
+                                                        </TabPane>
+                                                    ))
+                                                }
+                                            </Tabs>
+                                        }
                                         <div className='div-container-main'>
                                             <div className='admin-control'>
                                                 <div className='div-router-main'>
@@ -191,7 +280,7 @@ class App extends Component {
                                                         <Routes>
                                                             {
                                                                 Routers.map((item) => {
-                                                                    return <Route path={item.path} exact={item.exact} element={item.element}></Route>
+                                                                    return <Route key={item.path} path={item.path} exact={item.exact} element={item.element}></Route>
                                                                 })
                                                             }
                                                         </Routes>
