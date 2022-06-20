@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
-import { message, Layout, Menu, Breadcrumb, ConfigProvider, Radio, Tabs } from 'antd';
+import { message, Layout, Menu , ConfigProvider, Radio, Tabs} from 'antd';
 import Login from './pages/user/Login'
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
-    UploadOutlined,
-    HomeOutlined,
+    StopOutlined,
     UserOutlined,
-    VideoCameraOutlined,
     MailOutlined,
 } from '@ant-design/icons';
 import { HashRouter, Route, Routes } from 'react-router-dom'
@@ -102,22 +100,22 @@ class App extends Component {
         })
     }
 
-    getChild(items , arrays) {
-        return items.forEach(item => {
+    getChild(items, arrays) {
+        items.forEach(item => {
             if (item.children) {
-                this.getChild(item.children)
+                this.getChild(item.children, arrays)
             }
-            return item;
+
+            arrays.push(item)
         })
+        return arrays;
     }
 
     onChange(key) {
         this.setActiveKey(key);
 
-        let arrays = []
-        // arrays.push(1)
-        this.getChild(Menus , arrays)
-
+        let arrays = this.getChild(Menus, [])
+        console.log('...', arrays)
         const item = arrays.filter(item => {
             return item.key === key
         })
@@ -264,7 +262,23 @@ class App extends Component {
                                         }}
                                     >
                                         {
-                                            <Tabs hideAdd onChange={this.onChange.bind(this)} activeKey={this.state.activeKey} type="editable-card" onEdit={this.onEdit.bind(this)}>
+                                            <Tabs hideAdd onChange={this.onChange.bind(this)} activeKey={this.state.activeKey}
+                                                type="editable-card" onEdit={this.onEdit.bind(this)}
+                                                tabPosition={'top'}
+                                                tabBarStyle={{ marginLeft: '20px' }}
+                                                tabBarGutter={3}
+                                                tabBarExtraContent={
+                                                    <Menu mode="horizontal" onClick={({ key }) => {
+                                                        message.success(`关闭了${key}`)
+                                                    }}>
+                                                        <Menu.SubMenu title={<span>关闭页签 <StopOutlined /></span>}>
+                                                            <Menu.Item key="1">关闭标签</Menu.Item>
+                                                            <Menu.Item key="2">关闭其他标签</Menu.Item>
+                                                            <Menu.Item key="3">关闭右侧标签</Menu.Item>
+                                                            <Menu.Item key="4">关闭全部标签</Menu.Item>
+                                                        </Menu.SubMenu>
+                                                    </Menu>
+                                                }>
                                                 {
                                                     this.state.breadcrumbList.map((pane) => (
                                                         <TabPane tab={pane.title} key={pane.key}>
@@ -298,9 +312,8 @@ class App extends Component {
                             </Login>
                     }
                 </div>
-            </ConfigProvider>
+            </ConfigProvider >
         )
     }
 }
-
 export default App;                                                                                                 
