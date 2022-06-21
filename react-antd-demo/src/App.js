@@ -213,7 +213,7 @@ class App extends Component {
                                     <Content
                                         className="site-layout-background"
                                         style={{
-                                            margin: '25px 10px 0px',
+                                            margin: '5px 10px 0px',
                                             minHeight: 280,
                                         }}
                                     >
