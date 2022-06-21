@@ -1,13 +1,8 @@
-.div-container-main {
-    width: 100%;
-    height: 100%;
-}
-
 //登录页面
 div.login-main {
     height: 100%;
     width: 100%;
-    background-image: url("https://cdn.web-global.fds.api.mi-img.com/mcfe--mi-account/static/static/media/banner.5b1efcd8.jpg");
+    // background-image: url("https://cdn.web-global.fds.api.mi-img.com/mcfe--mi-account/static/static/media/banner.5b1efcd8.jpg");
 
     div.right-login {
         width: 100%;
@@ -18,6 +13,7 @@ div.login-main {
 
             width: 100%;
             height: 120px;
+            text-align: center;
 
             div.logo {
                 margin-left: 20px;
@@ -31,7 +27,7 @@ div.login-main {
                 .logo-span {
                     font-size: 24px;
                     margin-left: 10px;
-                    color: white;
+                    // color: white;
                 }
             }
 
@@ -54,27 +50,6 @@ div.login-main {
 
     }
 }
-
-
-div .header-main {
-    width: 100%;
-    height: 60px;
-    background-color: bisque;
-}
-
-div .admin-control {
-    width: 100%;
-    height: 100%;
-}
-
-div .div-router-main {
-    width: 100%;
-    // height: 590px;
-    height: 100%;
-    overflow: auto;
-}
-
-
 div.footer-main {
     width: 100%;
     height: 70px;
@@ -86,8 +61,27 @@ div.footer-main {
     }
 }
 
+.div-container-main {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    .site-layout-background .ant-tabs-nav {
+        margin: 0;
+    };
 
-//登录页面
+    .content-tabs .ant-tabs{
+        height: 50px;
+    }
+
+    .div-router-main {
+        padding: 5px 20px;
+        width: 100%;
+        height: calc(~'100% - 50px');
+        overflow: auto;
+    }
+}
+
+
 .layout-main{
     width: 100%;
     height: 100%;

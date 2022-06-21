@@ -15,10 +15,8 @@ class Home extends Component {
     render() {
         return (
             <div>
-                <div className="site-config-provider-calendar-wrapper">
-                    <Calendar fullscreen={false} value={moment()} />
-                    {/* <Calendar fullscreen={false} value={moment()} /> */}
-                </div>
+                <Calendar fullscreen={false} value={moment()} />
+                <Calendar fullscreen={false} value={moment()} />
             </div>
         )
     }

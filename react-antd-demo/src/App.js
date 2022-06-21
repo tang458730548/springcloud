@@ -116,7 +116,7 @@ class App extends Component {
                 icon: item.icon,
                 label: item.label,
                 onClick: () => {
-                    if(!item.onClick){
+                    if (!item.onClick) {
                         const breadcrumbList = this.state.breadcrumbList
                         const key = item.key
                         if (!breadcrumbList.some(item => {
@@ -213,16 +213,16 @@ class App extends Component {
                                     <Content
                                         className="site-layout-background"
                                         style={{
-                                            margin: '24px 16px',
-                                            padding: 24,
+                                            margin: '25px 10px 0px',
                                             minHeight: 280,
                                         }}
                                     >
-                                        {
+                                        <div className='content-tabs'>
+                                        {   
                                             <Tabs hideAdd onChange={this.onChange.bind(this)} activeKey={this.state.activeKey}
                                                 type="editable-card" onEdit={this.onEdit.bind(this)}
                                                 tabPosition={'top'}
-                                                tabBarStyle={{ marginLeft: '20px' }}
+                                                tabBarStyle={{ margin: '0px 20px' }}
                                                 tabBarGutter={3}
                                                 tabBarExtraContent={
                                                     <Menu mode="horizontal"
@@ -233,7 +233,7 @@ class App extends Component {
                                                             {
                                                                 key: '0',
                                                                 label: <div>
-                                                                    关闭标签 <StopOutlined></StopOutlined>
+                                                                    关闭标签 <StopOutlined />
                                                                 </div>,
                                                                 children: [
                                                                     {
@@ -266,29 +266,26 @@ class App extends Component {
                                                 }
                                             </Tabs>
                                         }
-                                        <div className='div-container-main'>
-                                            <div className='admin-control'>
-                                                <div className='div-router-main'>
-                                                    <HashRouter>
-                                                        <Routes>
-                                                            {
-                                                                Routers.map((item) => {
-                                                                    return <Route key={item.path} path={item.path} exact={item.exact} element={item.element}></Route>
-                                                                })
-                                                            }
-                                                        </Routes>
-                                                    </HashRouter>
-                                                </div>
-                                            </div>
+                                        </div>
+                                        <div className='div-router-main'>
+                                            <HashRouter>
+                                                <Routes>
+                                                    {
+                                                        Routers.map((item) => {
+                                                            return <Route key={item.path} path={item.path} exact={item.exact} element={item.element}></Route>
+                                                        })
+                                                    }
+                                                </Routes>
+                                            </HashRouter>
                                         </div>
                                     </Content>
-                                    <Affix style={{ position: 'absolute', bottom : 60, right: 5 }} offsetBottom={this.state.bottom}>
+                                    {/* <Affix style={{ position: 'absolute', bottom : 160, right: 5 }} offsetBottom={this.state.bottom}>
                                         <Button type="primary" onClick={() => this.setState({
                                             bottom : this.state.bottom + 100
                                         })}>
                                             点击联系我们
                                         </Button>
-                                    </Affix>
+                                    </Affix> */}
                                     <Footer style={{ textAlign: 'center' }}>xx xx ©2022 xxxxxxxxxx</Footer>
                                 </Layout>
                             </Layout>

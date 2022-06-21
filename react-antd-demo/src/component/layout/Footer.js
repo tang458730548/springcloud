@@ -13,7 +13,7 @@ class Footer extends Component {
         return (
             <div className='footer-main'>
                 <span className='span-content'>
-                    Copyright© 2019xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                    Copyright© 2022 Create by Tsc {`${new Date().getFullYear()} 年 ${new Date().getMonth()+1} 月 ${new Date().getDay()} 日`}
                 </span>
             </div>
         )
