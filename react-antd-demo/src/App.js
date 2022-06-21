@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { message, Layout, Menu , ConfigProvider, Radio, Tabs} from 'antd';
+import { message, Layout, Menu, ConfigProvider, Radio, Tabs, Affix, Button } from 'antd';
 import Login from './pages/user/Login'
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     StopOutlined,
-    UserOutlined,
-    MailOutlined,
 } from '@ant-design/icons';
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Routers from './router';
@@ -15,6 +13,8 @@ import enUS from 'antd/lib/locale/en_US';
 import zhCN from 'antd/lib/locale/zh_CN';
 import moment from 'moment';
 import Menus from './config/menu'
+import TopeMenus from './config/topMenu'
+import topMenu from './config/topMenu';
 moment.locale('en');
 
 const { Header, Sider, Content } = Layout;
@@ -33,46 +33,6 @@ class App extends Component {
             current: undefined,
             breadcrumbList: [
             ],
-            items: [
-                {
-                    label: '消息中心',
-                    key: 'mail',
-                    icon: <MailOutlined />,
-                },
-                {
-                    label: '设置',
-                    key: 'SubMenu',
-                    icon: <UserOutlined />,
-                    children: [
-                        {
-                            label: (
-                                <div onClick={() => {
-                                    window.location.hash = '#/user/info'
-                                }}>个人中心</div>
-                            ),
-                            key: 'setting:1',
-                        },
-                        {
-                            label: '修改密码',
-                            key: 'setting:2',
-                        },
-                        {
-                            // label: '退出登录',
-                            label: (
-                                <div onClick={() => {
-                                    window.sessionStorage.removeItem('session')
-                                    message.success(`退出登录成功！`)
-                                    setTimeout(() => {
-                                        window.location.reload()
-                                        window.location.hash = '#/'
-                                    }, 1000);
-                                }}>退出登录</div>
-                            ),
-                            key: 'setting:3',
-                        },
-                    ],
-                },
-            ]
         }
 
     }
@@ -94,12 +54,6 @@ class App extends Component {
         message.success(`登录成功！`)
     }
 
-    onClick(e) {
-        console.log(e)
-        this.setState({
-        })
-    }
-
     getChild(items, arrays) {
         items.forEach(item => {
             if (item.children) {
@@ -113,9 +67,8 @@ class App extends Component {
 
     onChange(key) {
         this.setActiveKey(key);
-
-        let arrays = this.getChild(Menus, [])
-        console.log('...', arrays)
+        const newMenus = Menus.concat(topMenu);
+        let arrays = this.getChild(newMenus, [])
         const item = arrays.filter(item => {
             return item.key === key
         })
@@ -163,22 +116,24 @@ class App extends Component {
                 icon: item.icon,
                 label: item.label,
                 onClick: () => {
-                    const breadcrumbList = this.state.breadcrumbList
-                    const key = item.key
-                    if (!breadcrumbList.some(item => {
-                        return item.key === key
-                    })) {
-                        breadcrumbList.push({
-                            title: item.label,
-                            content: item.content,
-                            key: key
-                        });
+                    if(!item.onClick){
+                        const breadcrumbList = this.state.breadcrumbList
+                        const key = item.key
+                        if (!breadcrumbList.some(item => {
+                            return item.key === key
+                        })) {
+                            breadcrumbList.push({
+                                title: item.label,
+                                content: item.content,
+                                key: key
+                            });
+                        }
+                        this.onChange(key)
+                        this.setState({
+                            breadcrumbList: breadcrumbList
+                        })
+                        window.location.href = `#${item.router}`
                     }
-                    this.onChange(key)
-                    this.setState({
-                        breadcrumbList: breadcrumbList
-                    })
-                    window.location.href = `#${item.router}`
                 },
             }
         }
@@ -250,7 +205,9 @@ class App extends Component {
                                             </Radio.Group>
                                         </span>
                                         <span style={{ float: "right", width: '20%' }}>
-                                            <Menu onClick={this.onClick.bind(this)} selectedKeys={this.state.current} mode="horizontal" items={this.state.items} />
+                                            <Menu selectedKeys={this.state.current} mode="horizontal" items={
+                                                this.handleMenus(TopeMenus)
+                                            } />
                                         </span>
                                     </Header>
                                     <Content
@@ -268,15 +225,37 @@ class App extends Component {
                                                 tabBarStyle={{ marginLeft: '20px' }}
                                                 tabBarGutter={3}
                                                 tabBarExtraContent={
-                                                    <Menu mode="horizontal" onClick={({ key }) => {
-                                                        message.success(`关闭了${key}`)
-                                                    }}>
-                                                        <Menu.SubMenu title={<span>关闭页签 <StopOutlined /></span>}>
-                                                            <Menu.Item key="1">关闭标签</Menu.Item>
-                                                            <Menu.Item key="2">关闭其他标签</Menu.Item>
-                                                            <Menu.Item key="3">关闭右侧标签</Menu.Item>
-                                                            <Menu.Item key="4">关闭全部标签</Menu.Item>
-                                                        </Menu.SubMenu>
+                                                    <Menu mode="horizontal"
+                                                        onClick={({ key }) => {
+                                                            message.success(`关闭了${key}`)
+                                                        }}
+                                                        items={[
+                                                            {
+                                                                key: '0',
+                                                                label: <div>
+                                                                    关闭标签 <StopOutlined></StopOutlined>
+                                                                </div>,
+                                                                children: [
+                                                                    {
+                                                                        key: '1',
+                                                                        label: '关闭标签',
+                                                                    },
+                                                                    {
+                                                                        key: '2',
+                                                                        label: '关闭其他标签',
+                                                                    },
+                                                                    {
+                                                                        key: '3',
+                                                                        label: '关闭右侧标签',
+                                                                    },
+                                                                    {
+                                                                        key: '4',
+                                                                        label: '关闭全部标签',
+                                                                    },
+                                                                ]
+                                                            }
+                                                        ]}
+                                                    >
                                                     </Menu>
                                                 }>
                                                 {
@@ -303,6 +282,13 @@ class App extends Component {
                                             </div>
                                         </div>
                                     </Content>
+                                    <Affix style={{ position: 'absolute', bottom : 60, right: 5 }} offsetBottom={this.state.bottom}>
+                                        <Button type="primary" onClick={() => this.setState({
+                                            bottom : this.state.bottom + 100
+                                        })}>
+                                            点击联系我们
+                                        </Button>
+                                    </Affix>
                                     <Footer style={{ textAlign: 'center' }}>xx xx ©2022 xxxxxxxxxx</Footer>
                                 </Layout>
                             </Layout>

@@ -17,6 +17,7 @@ class Home extends Component {
             <div>
                 <div className="site-config-provider-calendar-wrapper">
                     <Calendar fullscreen={false} value={moment()} />
+                    {/* <Calendar fullscreen={false} value={moment()} /> */}
                 </div>
             </div>
         )
