@@ -8,6 +8,10 @@ class UserInfo extends Component {
         }
     }
 
+    componentDidMount(){
+        console.log('进来了--userInfo')
+    }
+
     render() {
         return (
             <div className='user-info-main'>
