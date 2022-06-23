@@ -30,7 +30,7 @@ class App extends Component {
             session: JSON.parse(window.sessionStorage.getItem('session')),
             loading: false,
             collapsed: false,
-            current: undefined,
+            activeKey: undefined,
             breadcrumbList: [
             ],
         }
@@ -154,6 +154,64 @@ class App extends Component {
         })
     }
 
+    handCloseTabs(key) {
+        const breadcrumbList = this.state.breadcrumbList;
+        if (key === '1') {
+            //关闭当前
+            breadcrumbList.forEach((item, index) => {
+                if (item.key === this.state.activeKey) {
+                    breadcrumbList.splice(index, 1)
+                    if (breadcrumbList.length > 0) {
+                        this.setActiveKey(breadcrumbList[breadcrumbList.length - 1].key)
+                        this.onChange(breadcrumbList[breadcrumbList.length - 1].key)
+                    }
+                    this.setState({
+                        breadcrumbList: breadcrumbList
+                    })
+                }
+            })
+
+        } else if (key == 2) {
+            //关闭其他
+            const newList = breadcrumbList.filter(item => {
+                return item.key === this.state.activeKey
+            })
+            this.setActiveKey(newList[0].key)
+            this.onChange(newList[0].key)
+            this.setState({
+                breadcrumbList: newList
+            })
+
+        } else if (key == 3) {
+            debugger
+            //关闭右侧
+            let index = -1
+            breadcrumbList.forEach((item, i) => {
+                if (item.key === this.state.activeKey) {
+                    index = i;
+                }
+            })
+
+            if (index != -1) {
+                console.log(index, breadcrumbList.length)
+
+                breadcrumbList.splice(index + 1, breadcrumbList.length - index)
+                this.setActiveKey(breadcrumbList[breadcrumbList.length - 1].key)
+                this.onChange(breadcrumbList[breadcrumbList.length - 1].key)
+                this.setState({
+                    breadcrumbList: breadcrumbList
+                })
+            }
+
+
+        } if (key === '4') {
+            this.setState({
+                breadcrumbList: []
+            })
+            window.location.hash = "/"
+        }
+    }
+
     render() {
         return (
             <ConfigProvider locale={this.state.locale}>
@@ -182,33 +240,90 @@ class App extends Component {
                                             padding: 0,
                                         }}
                                     >
-                                        {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
-                                            className: 'trigger',
-                                            onClick: () => {
-                                                this.setState({
-                                                    collapsed: !this.state.collapsed
-                                                })
-                                            },
-                                        })}
-                                        <span style={{ float: "right", width: '15%' }}>
-                                            <Radio.Group value={this.state.locale} onChange={(event) => {
-                                                this.setState({
-                                                    locale: event.target.value
-                                                })
-                                            }}>
-                                                <Radio.Button key="en" value={enUS}>
-                                                    English
-                                                </Radio.Button>
-                                                <Radio.Button key="cn" value={zhCN}>
-                                                    中文
-                                                </Radio.Button>
-                                            </Radio.Group>
-                                        </span>
-                                        <span style={{ float: "right", width: '20%' }}>
-                                            <Menu selectedKeys={this.state.current} mode="horizontal" items={
-                                                this.handleMenus(TopeMenus)
-                                            } />
-                                        </span>
+                                        <div className='header-div'>
+                                            {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                                                className: 'trigger',
+                                                onClick: () => {
+                                                    this.setState({
+                                                        collapsed: !this.state.collapsed
+                                                    })
+                                                },
+                                            })}
+
+                                            <div className='content-tabs header-div-left'>
+                                                {
+                                                    <Tabs hideAdd onChange={this.onChange.bind(this)} activeKey={this.state.activeKey}
+                                                        type="editable-card" onEdit={this.onEdit.bind(this)}
+                                                        tabPosition={'top'}
+                                                        tabBarStyle={{ margin: '0px 20px' }}
+                                                        tabBarGutter={3}
+                                                        tabBarExtraContent={
+                                                            this.state.breadcrumbList.length > 0 ?
+                                                                <Menu mode="horizontal"
+                                                                    onClick={({ key }) => {
+                                                                        message.success(`关闭了${key}`)
+                                                                        this.handCloseTabs(key);
+                                                                    }}
+                                                                    items={[
+                                                                        {
+                                                                            key: '0',
+                                                                            label: <div>
+                                                                                关闭标签 <StopOutlined />
+                                                                            </div>,
+                                                                            children: [
+                                                                                {
+                                                                                    key: '1',
+                                                                                    label: '关闭标签',
+                                                                                },
+                                                                                {
+                                                                                    key: '2',
+                                                                                    label: '关闭其他标签',
+                                                                                },
+                                                                                {
+                                                                                    key: '3',
+                                                                                    label: '关闭右侧标签',
+                                                                                },
+                                                                                {
+                                                                                    key: '4',
+                                                                                    label: '关闭全部标签',
+                                                                                },
+                                                                            ]
+                                                                        }
+                                                                    ]}
+                                                                >
+                                                                </Menu> : ''
+                                                        }>
+                                                        {
+                                                            this.state.breadcrumbList.map((pane) => (
+                                                                <TabPane tab={pane.title} key={pane.key}>
+                                                                </TabPane>
+                                                            ))
+                                                        }
+                                                    </Tabs>
+                                                }
+                                            </div>
+                                            <div className='header-div-right'>
+                                                <span>
+                                                    <Radio.Group value={this.state.locale} onChange={(event) => {
+                                                        this.setState({
+                                                            locale: event.target.value
+                                                        })
+                                                    }}>
+                                                        <Radio.Button key="en" value={enUS}>
+                                                            English
+                                                        </Radio.Button>
+                                                        <Radio.Button key="cn" value={zhCN}>
+                                                            中文
+                                                        </Radio.Button>
+                                                    </Radio.Group>
+                                                </span>
+                                                <span>
+                                                    <Menu selectedKeys={this.state.activeKey} mode="horizontal" items={
+                                                        this.handleMenus(TopeMenus)
+                                                    } />
+                                                </span>
+                                            </div>
+                                        </div>
                                     </Header>
                                     <Content
                                         className="site-layout-background"
@@ -217,62 +332,14 @@ class App extends Component {
                                             minHeight: 280,
                                         }}
                                     >
-                                        <div className='content-tabs'>
-                                        {   
-                                            <Tabs hideAdd onChange={this.onChange.bind(this)} activeKey={this.state.activeKey}
-                                                type="editable-card" onEdit={this.onEdit.bind(this)}
-                                                tabPosition={'top'}
-                                                tabBarStyle={{ margin: '0px 20px' }}
-                                                tabBarGutter={3}
-                                                tabBarExtraContent={
-                                                    <Menu mode="horizontal"
-                                                        onClick={({ key }) => {
-                                                            message.success(`关闭了${key}`)
-                                                        }}
-                                                        items={[
-                                                            {
-                                                                key: '0',
-                                                                label: <div>
-                                                                    关闭标签 <StopOutlined />
-                                                                </div>,
-                                                                children: [
-                                                                    {
-                                                                        key: '1',
-                                                                        label: '关闭标签',
-                                                                    },
-                                                                    {
-                                                                        key: '2',
-                                                                        label: '关闭其他标签',
-                                                                    },
-                                                                    {
-                                                                        key: '3',
-                                                                        label: '关闭右侧标签',
-                                                                    },
-                                                                    {
-                                                                        key: '4',
-                                                                        label: '关闭全部标签',
-                                                                    },
-                                                                ]
-                                                            }
-                                                        ]}
-                                                    >
-                                                    </Menu>
-                                                }>
-                                                {
-                                                    this.state.breadcrumbList.map((pane) => (
-                                                        <TabPane tab={pane.title} key={pane.key}>
-                                                        </TabPane>
-                                                    ))
-                                                }
-                                            </Tabs>
-                                        }
-                                        </div>
                                         <div className='div-router-main'>
                                             <HashRouter>
                                                 <Routes>
                                                     {
                                                         Routers.map((item) => {
-                                                            return <Route key={item.path} path={item.path} exact={item.exact} element={item.element}></Route>
+                                                            return <Route key={item.path} path={item.path}
+                                                                exact={item.exact} element={item.element}
+                                                            ></Route>
                                                         })
                                                     }
                                                 </Routes>

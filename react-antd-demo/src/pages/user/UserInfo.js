@@ -8,14 +8,15 @@ class UserInfo extends Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
         console.log('进来了--userInfo')
     }
 
     render() {
+        const {props}  = this.props
         return (
             <div className='user-info-main'>
-                个人中心
+                个人中心 
             </div>
         )
     }

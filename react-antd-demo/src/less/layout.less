@@ -3,6 +3,8 @@ div.login-main {
     height: 100%;
     width: 100%;
     // background-image: url("https://cdn.web-global.fds.api.mi-img.com/mcfe--mi-account/static/static/media/banner.5b1efcd8.jpg");
+    background-image: url("./../../public/asset/login.jpg");
+    background-repeat: no-repeat;
 
     div.right-login {
         width: 100%;
@@ -35,16 +37,32 @@ div.login-main {
 
 
         div.login-content {
-            width: 50%;
+            width: 40%;
             margin: 0 auto;
             text-align: center;
             height: calc(~"100% - 180px - 70px");
             border-radius: 10px;
             background: #fff;
             box-shadow: 0 0 15px rgb(0 0 0 / 40%);
+            h2 {
+                padding-top: 15px;
+            }
 
             .root-login-modal {
-                margin-top: 30px;
+                margin-top: 25px;
+            }
+            .logo-span {
+                padding: 20px;
+                height: 80px;
+                text-align: center;
+                font-size: 25px;
+                // font-weight: bold;
+                border-bottom: 1px solid #e2c0c0;
+                img {
+                    width: 35px;
+                    height: 35px;
+                    margin-right: 10px;
+                }
             }
         }
 
@@ -75,7 +93,7 @@ div.footer-main {
     ;
 
     .content-tabs .ant-tabs {
-        height: 50px;
+        height: 40px;
     }
 
     .div-router-main {
@@ -115,9 +133,22 @@ div.footer-main {
 }
 
 .site-layout .ant-layout-header {
-    line-height: 40px;
-    height: 50px;
+    line-height: 60px;
+    height: 80px;
+    .header-div {
+        display: flex; 
+        .header-div-left {
+            width: 70%;
+        }
+        .header-div-right {
+            display: flex;
+            width: 500px;
 
+            span {
+                width: 170px;
+            }
+        }
+    }
     span {
         padding: 5px;
     }

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Button, Input, Form, message, Checkbox } from 'antd';
 import Footer from '../../component/layout/Footer';
 
+import {UserOutlined , LockOutlined} from '@ant-design/icons'
+
 class Login extends Component {
 
     constructor(props) {
@@ -59,15 +61,19 @@ class Login extends Component {
             <div className='login-main'>
                 <div className='right-login'>
                     <div className='login-title'>
-                        <div className='logo'>
+                        {/* <div className='logo'>
                             <img  alt="图像" className='logo-img' src='./../../favicon.ico'></img>
                             <span className='logo-span'>xxxxxxxxxxxx系统</span>
                         </div>
                         <div className='logo-nvg'>
-                        </div>
+                        </div> */}
                     </div>
                     <div className='login-content'>
-                        <h2 style={{ paddingTop: '60px' }}>用户登录</h2>
+                        <div className='logo-span'>
+                            <img  alt="图像" className='logo-img' src='./../../favicon.ico'></img>
+                            xxxxxxxxxxxx系统
+                        </div>
+                        <h2>用户登录</h2>
                         <div className="root-login-modal">
                             <Form
                                 name="basic"
@@ -92,7 +98,7 @@ class Login extends Component {
                                         },
                                     ]}
                                 >
-                                    <Input />
+                                    <Input prefix={<UserOutlined />} placeholder="请输入用户名！"/>
                                 </Form.Item>
 
                                 <Form.Item
@@ -105,7 +111,7 @@ class Login extends Component {
                                         },
                                     ]}
                                 >
-                                    <Input.Password />
+                                    <Input.Password prefix={<LockOutlined />} placeholder="请输入密码！"/>
                                 </Form.Item>
 
                                 <Form.Item
