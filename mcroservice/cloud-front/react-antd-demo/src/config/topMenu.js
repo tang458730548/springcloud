@@ -29,8 +29,8 @@ const topMenu = [
                         window.sessionStorage.removeItem('session')
                         message.success(`退出登录成功！`)
                         setTimeout(() => {
-                            window.location.reload()
                             window.location.hash = '#/'
+                            window.location.reload()
                         }, 1000);
                     }}>退出登录</div>
                 ),
