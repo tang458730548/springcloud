@@ -3,7 +3,7 @@ div.login-main {
     height: 100%;
     width: 100%;
     // background-image: url("https://cdn.web-global.fds.api.mi-img.com/mcfe--mi-account/static/static/media/banner.5b1efcd8.jpg");
-    background-image: url("./../../public/asset/login.jpg");
+    background-image: url("./../../public/asset/login2.jpg");
     background-repeat: no-repeat;
 
     div.right-login {
@@ -44,6 +44,7 @@ div.login-main {
             border-radius: 10px;
             background: #fff;
             box-shadow: 0 0 15px rgb(0 0 0 / 40%);
+
             h2 {
                 padding-top: 15px;
             }
@@ -51,6 +52,7 @@ div.login-main {
             .root-login-modal {
                 margin-top: 25px;
             }
+
             .logo-span {
                 padding: 20px;
                 height: 80px;
@@ -58,6 +60,7 @@ div.login-main {
                 font-size: 25px;
                 // font-weight: bold;
                 border-bottom: 1px solid #e2c0c0;
+
                 img {
                     width: 35px;
                     height: 35px;
@@ -76,15 +79,20 @@ div.footer-main {
     padding-top: 30px;
 
     .span-content {
+        color: #eee;
         font-size: 16px;
         font-weight: 400;
     }
 }
 
+
 .div-container-main {
     width: 100%;
     height: 100%;
-    overflow: auto;
+
+    .ant-layout-content {
+        overflow-y: auto;
+    }
 
     .site-layout-background .ant-tabs-nav {
         margin: 0;
@@ -99,7 +107,9 @@ div.footer-main {
     .div-router-main {
         padding: 5px 20px;
         width: 100%;
-        height: calc(~'100% - 50px');
+        background: #fff;
+        // height: calc(~'100%');
+        height: 100%;
         overflow: auto;
     }
 }
@@ -108,6 +118,36 @@ div.footer-main {
 .layout-main {
     width: 100%;
     height: 100%;
+
+    .header-div-container {
+        background: black;
+    }
+
+    .affix-div-container {
+        position: absolute;
+        bottom: 160px;
+        right: 35px;
+
+        .affix-div {
+            width: 50px;
+            height: 100px;
+            background-color: #eee;
+            border-radius: 5px;
+            border: 1px solid #eef;
+            box-shadow: 5px 5px 10px #888888;
+            padding: 10px 1px;
+            text-align: center;
+
+            a {
+                svg {
+                    width: 100%;
+                    height: 30px;
+                    margin: 5px 0px;
+                }
+            }
+        }
+    }
+
 }
 
 #components-layout-demo-custom-trigger .trigger {
@@ -128,27 +168,27 @@ div.footer-main {
     background: rgba(255, 255, 255, 0.3);
 }
 
-.site-layout .site-layout-background {
-    background: #fff;
+.ant-layout-footer {
+    background: #fff !important;
 }
 
 .site-layout .ant-layout-header {
     line-height: 60px;
-    height: 80px;
+    height: 70px;
+
     .header-div {
-        display: flex; 
+        display: flex;
+        background-color: #fff;
+
         .header-div-left {
-            width: 70%;
+            width: 75%;
         }
+
         .header-div-right {
             display: flex;
-            width: 500px;
-
-            span {
-                width: 170px;
-            }
         }
     }
+
     span {
         padding: 5px;
     }
@@ -188,6 +228,7 @@ div .home-container {
     .home-container-bottom {
         display: flex;
         justify-content: center;
+
         >div {
             box-shadow: 0 0 0px rgb(0 0 0 / 40%);
             height: 250px;

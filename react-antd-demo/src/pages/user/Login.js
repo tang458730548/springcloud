@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Button, Input, Form, message, Checkbox } from 'antd';
 import Footer from '../../component/layout/Footer';
 
-import {UserOutlined , LockOutlined} from '@ant-design/icons'
+import {UserOutlined , LockOutlined , MailOutlined , MessageOutlined} from '@ant-design/icons'
 
 class Login extends Component {
 
@@ -22,6 +22,11 @@ class Login extends Component {
 
         const userName = values.username
         const password = values.password
+        const code = values.code
+        if(code !== '1234'){
+            message.warn('验证码错误！！！')
+            return
+        }
 
         if (userName !== 'admin' || password !== '123456') {
             message.warn(`用户名/密码为:admin/123456`)
@@ -34,14 +39,14 @@ class Login extends Component {
             loading: true
         })
 
+        message.success(`登录成功！`)
         setTimeout(() => {
-            message.success(`登录成功！`)
             this.setState({
                 loading: false
             })
             window.location.reload()
             window.location.hash = "#/"
-        }, 1500);
+        }, 1000);
     }
 
     onFinishFailed() {
@@ -112,6 +117,25 @@ class Login extends Component {
                                     ]}
                                 >
                                     <Input.Password prefix={<LockOutlined />} placeholder="请输入密码！"/>
+                                </Form.Item>
+
+                                <Form.Item
+                                    label="验证码"
+                                    name="code"
+                                    wrapperCol={{
+                                        span: 12,
+                                    }}
+                                    rules={[
+                                        {
+                                            required: true,
+                                            message: '请输入验证码！',
+                                        },
+                                    ]}
+                                >
+                                    <Input prefix={<MailOutlined/>} placeholder="请输入验证码！" 
+                                    suffix={<span><MessageOutlined style={{margin : '0px 5px'}} /><a href='/#' onClick={()=>{
+                                        message.success(`获取验证码成功：1234`)
+                                    }}>获取验证码</a></span>}/>
                                 </Form.Item>
 
                                 <Form.Item

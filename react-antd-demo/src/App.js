@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { message, Layout, Menu, ConfigProvider, Radio, Tabs, Affix, Button } from 'antd';
+import { message, Layout, Menu, ConfigProvider, Tabs, Affix, Modal } from 'antd';
 import Login from './pages/user/Login'
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     StopOutlined,
+    WechatOutlined,
+    QqOutlined
 } from '@ant-design/icons';
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Routers from './router';
@@ -171,7 +173,7 @@ class App extends Component {
                 }
             })
 
-        } else if (key == 2) {
+        } else if (key === '2') {
             //关闭其他
             const newList = breadcrumbList.filter(item => {
                 return item.key === this.state.activeKey
@@ -182,7 +184,7 @@ class App extends Component {
                 breadcrumbList: newList
             })
 
-        } else if (key == 3) {
+        } else if (key === '3') {
             debugger
             //关闭右侧
             let index = -1
@@ -192,7 +194,7 @@ class App extends Component {
                 }
             })
 
-            if (index != -1) {
+            if (index !== -1) {
                 console.log(index, breadcrumbList.length)
 
                 breadcrumbList.splice(index + 1, breadcrumbList.length - index)
@@ -225,8 +227,8 @@ class App extends Component {
                                     </div>
                                     <Menu
                                         style={{ height: '100%' }}
-                                        theme="dark"
                                         mode="inline"
+                                        theme='dark'
                                         defaultSelectedKeys={['1']}
                                         items={
                                             this.handleMenus(Menus)
@@ -235,7 +237,7 @@ class App extends Component {
                                 </Sider>
                                 <Layout className="site-layout" >
                                     <Header
-                                        className="site-layout-background"
+                                        className="site-layout-background header-div-container"
                                         style={{
                                             padding: 0,
                                         }}
@@ -255,7 +257,6 @@ class App extends Component {
                                                     <Tabs hideAdd onChange={this.onChange.bind(this)} activeKey={this.state.activeKey}
                                                         type="editable-card" onEdit={this.onEdit.bind(this)}
                                                         tabPosition={'top'}
-                                                        tabBarStyle={{ margin: '0px 20px' }}
                                                         tabBarGutter={3}
                                                         tabBarExtraContent={
                                                             this.state.breadcrumbList.length > 0 ?
@@ -292,10 +293,45 @@ class App extends Component {
                                                                     ]}
                                                                 >
                                                                 </Menu> : ''
-                                                        }>
+                                                        }
+                                                    >
                                                         {
                                                             this.state.breadcrumbList.map((pane) => (
-                                                                <TabPane tab={pane.title} key={pane.key}>
+                                                                <TabPane tab={pane.title
+                                                                    // <Menu mode="horizontal"
+                                                                    //     style={{ height: '100%' }}
+                                                                    //     onClick={({ key }) => {
+                                                                    //         message.success(`关闭了${key}`)
+                                                                    //         this.handCloseTabs(key);
+                                                                    //     }}
+                                                                    //     items={[
+                                                                    //         {
+                                                                    //             key: '0',
+                                                                    //             label: <div> {pane.title}
+                                                                    //             </div>,
+                                                                    //             children: [
+                                                                    //                 {
+                                                                    //                     key: '1',
+                                                                    //                     label: '关闭标签',
+                                                                    //                 },
+                                                                    //                 {
+                                                                    //                     key: '2',
+                                                                    //                     label: '关闭其他标签',
+                                                                    //                 },
+                                                                    //                 {
+                                                                    //                     key: '3',
+                                                                    //                     label: '关闭右侧标签',
+                                                                    //                 },
+                                                                    //                 {
+                                                                    //                     key: '4',
+                                                                    //                     label: '关闭全部标签',
+                                                                    //                 },
+                                                                    //             ]
+                                                                    //         }
+                                                                    //     ]}
+                                                                    // >
+                                                                    // </Menu>
+                                                                } key={pane.key}>
                                                                 </TabPane>
                                                             ))
                                                         }
@@ -303,7 +339,7 @@ class App extends Component {
                                                 }
                                             </div>
                                             <div className='header-div-right'>
-                                                <span>
+                                                {/* <span>
                                                     <Radio.Group value={this.state.locale} onChange={(event) => {
                                                         this.setState({
                                                             locale: event.target.value
@@ -316,7 +352,7 @@ class App extends Component {
                                                             中文
                                                         </Radio.Button>
                                                     </Radio.Group>
-                                                </span>
+                                                </span> */}
                                                 <span>
                                                     <Menu selectedKeys={this.state.activeKey} mode="horizontal" items={
                                                         this.handleMenus(TopeMenus)
@@ -328,7 +364,7 @@ class App extends Component {
                                     <Content
                                         className="site-layout-background"
                                         style={{
-                                            margin: '5px 10px 0px',
+                                            margin: '15px 10px',
                                             minHeight: 280,
                                         }}
                                     >
@@ -346,14 +382,27 @@ class App extends Component {
                                             </HashRouter>
                                         </div>
                                     </Content>
-                                    {/* <Affix style={{ position: 'absolute', bottom : 160, right: 5 }} offsetBottom={this.state.bottom}>
-                                        <Button type="primary" onClick={() => this.setState({
-                                            bottom : this.state.bottom + 100
-                                        })}>
-                                            点击联系我们
-                                        </Button>
-                                    </Affix> */}
-                                    <Footer style={{ textAlign: 'center' }}>xx xx ©2022 xxxxxxxxxx</Footer>
+                                    <Affix className='affix-div-container' offsetBottom={this.state.bottom}>
+                                        <div className='affix-div'>
+                                            <a href='/#' onClick={() => {
+                                                Modal.success({
+                                                    title: 'WeiXin联系',
+                                                    content: <div>微信联系...</div>
+                                                })
+                                            }}>
+                                                <WechatOutlined />
+                                            </a>
+                                            <a href='/#'>
+                                                <QqOutlined onClick={() => {
+                                                    Modal.success({
+                                                        title: 'QQ联系',
+                                                        content: <div>QQ联系...</div>
+                                                    })
+                                                }} />
+                                            </a>
+                                        </div>
+                                    </Affix>
+                                    <Footer style={{ textAlign: 'center' }}>xx xx ©2022 create by tsc</Footer>
                                 </Layout>
                             </Layout>
                             :
