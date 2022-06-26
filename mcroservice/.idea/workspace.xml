@@ -2,15 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="96e6e12f-5848-443f-9103-b3bdfe459751" name="Default Changelist" comment="添加maven打包">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-consumer-order/target/classes/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-eureka-server/target/classes/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-eureka-server02/target/classes/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-provide-payment/target/classes/META-INF/cloudprovidepayment.kotlin_module" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-provide-payment/target/classes/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-provide-payment/target/classes/dao/PaymentDao.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-provide-payment02/target/classes/application.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cloud-provide-payment02/target/classes/dao2/PaymentDao.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -222,7 +214,7 @@
       <workItem from="1655903694860" duration="801000" />
       <workItem from="1656074155962" duration="700000" />
       <workItem from="1656252018542" duration="290000" />
-      <workItem from="1656252383497" duration="2739000" />
+      <workItem from="1656252383497" duration="2912000" />
     </task>
     <task id="LOCAL-00001" summary="添加maven打包">
       <created>1656254998848</created>
