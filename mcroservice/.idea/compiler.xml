@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="cloudeurekaserver" />
+        <module name="cloud-provide-payment" />
+        <module name="cloudeurekaserver02" />
+        <module name="cloudprovidepayment02" />
+        <module name="cloud-consumer-order" />
+        <module name="cloud-common-api" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="cloud-common-api" target="1.8" />
+      <module name="cloud-consumer-order" target="1.8" />
+      <module name="cloud-provide-payment" target="1.8" />
+      <module name="cloudeurekaserver" target="1.8" />
+      <module name="cloudeurekaserver02" target="1.8" />
+      <module name="cloudprovidepayment02" target="1.8" />
+      <module name="mcroservice" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

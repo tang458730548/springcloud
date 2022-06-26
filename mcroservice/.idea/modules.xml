@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/cloud-common-api/cloud-common-api.iml" filepath="$PROJECT_DIR$/cloud-common-api/cloud-common-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-consumer-order/cloud-consumer-order.iml" filepath="$PROJECT_DIR$/cloud-consumer-order/cloud-consumer-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-provide-payment/cloud-provide-payment.iml" filepath="$PROJECT_DIR$/cloud-provide-payment/cloud-provide-payment.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-eureka-server/cloudeurekaserver.iml" filepath="$PROJECT_DIR$/cloud-eureka-server/cloudeurekaserver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-eureka-server02/cloudeurekaserver02.iml" filepath="$PROJECT_DIR$/cloud-eureka-server02/cloudeurekaserver02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/cloud-provide-payment02/cloudprovidepayment02.iml" filepath="$PROJECT_DIR$/cloud-provide-payment02/cloudprovidepayment02.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mcroservice.iml" filepath="$PROJECT_DIR$/mcroservice.iml" />
+    </modules>
+  </component>
+</project>
