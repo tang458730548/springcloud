@@ -19,7 +19,7 @@
         <!-- 引入自己定义的api通用包，可以使用Payment支付Entity -->
         <dependency>
             <groupId>com.study.springcloud</groupId>
-            <artifactId>cloud-api-commons</artifactId>
+            <artifactId>cloud-common-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <!--boot web actuator-->
@@ -48,7 +48,7 @@
     </dependencies>
 
     <build>
-        <finalName>eureka-server-app</finalName>
+        <finalName>eureka-server-1</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

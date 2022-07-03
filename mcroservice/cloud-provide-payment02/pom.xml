@@ -70,13 +70,22 @@
     </dependencies>
 
     <build>
+        <finalName>payment2</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <classifier>exe</classifier>
+                    <fork>true</fork>
+                    <mainClass>com.springcloud.Provide2Application</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

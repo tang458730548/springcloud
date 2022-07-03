@@ -7,6 +7,7 @@ const topMenu = [
     {
         label: '消息中心',
         key: 'mail',
+        router : '/user/info',
         icon: <MailOutlined />,
     },
     {

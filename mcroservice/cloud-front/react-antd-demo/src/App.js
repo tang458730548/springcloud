@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { message, Layout, Menu, ConfigProvider, Tabs, Affix, Modal } from 'antd';
+import { message, Layout, Menu, ConfigProvider, Tabs, Affix, Modal,Breadcrumb } from 'antd';
 import Login from './pages/user/Login'
 import {
     MenuFoldOutlined,
     MenuUnfoldOutlined,
     StopOutlined,
     WechatOutlined,
-    QqOutlined
+    QqOutlined,
+    HomeOutlined,
+    UserOutlined
 } from '@ant-design/icons';
 import { HashRouter, Route, Routes } from 'react-router-dom'
 import Routers from './router';
@@ -185,7 +187,6 @@ class App extends Component {
             })
 
         } else if (key === '3') {
-            debugger
             //关闭右侧
             let index = -1
             breadcrumbList.forEach((item, i) => {
@@ -254,6 +255,28 @@ class App extends Component {
 
                                             <div className='content-tabs header-div-left'>
                                                 {
+                                                    <Breadcrumb style={{margin : '20px 0px 0px 20px'}}>
+                                                        <Breadcrumb.Item href="#/">
+                                                            <HomeOutlined />首页
+                                                        </Breadcrumb.Item>
+                                                        {
+                                                            this.state.breadcrumbList.map((d)=>{
+                                                                const newMenus = Menus.concat(topMenu);
+                                                                let arrays = this.getChild(newMenus, [])
+                                                                const item = arrays.filter(item => {
+                                                                    return item.key === d.key
+                                                                })
+                                                                return  <Breadcrumb.Item href={`#${item[0] ? item[0].router : undefined}`}>{d.title}</Breadcrumb.Item>
+                                                            })
+                                                        }
+                                                        {/* <Breadcrumb.Item href="">
+                                                            <UserOutlined />
+                                                            <span>Application List</span>
+                                                        </Breadcrumb.Item>
+                                                        <Breadcrumb.Item>Application</Breadcrumb.Item> */}
+                                                    </Breadcrumb>
+                                                }
+                                                {/* {
                                                     <Tabs hideAdd onChange={this.onChange.bind(this)} activeKey={this.state.activeKey}
                                                         type="editable-card" onEdit={this.onEdit.bind(this)}
                                                         tabPosition={'top'}
@@ -336,7 +359,7 @@ class App extends Component {
                                                             ))
                                                         }
                                                     </Tabs>
-                                                }
+                                                } */}
                                             </div>
                                             <div className='header-div-right'>
                                                 {/* <span>

@@ -45,13 +45,23 @@
     </dependencies>
 
     <build>
+        <finalName>order</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <classifier>exe</classifier>
+                    <fork>true</fork>
+                    <addResources>true</addResources>
+                    <mainClass>com.springcloud.ConsmerApplication</mainClass>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
